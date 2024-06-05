@@ -14,6 +14,11 @@ public class LoginTest {
         this.driver.manage().window().maximize();
         this.driver.get(BASE_URL);
     }
+    @AfterEach
+    public void terminateBrowser() {
+        driver.quit();
+        this.driver = null;
+    }
     @Test
     public void positiveLoginTest() {
         LoginPage login = new LoginPage(driver);
@@ -56,10 +61,5 @@ public class LoginTest {
                 () -> assertEquals(BASE_URL, resultPage.getCurrentUrl()),
                 () -> assertTrue(resultPage.getPageSource().contains("Your password is invalid!"))
         );
-    }
-    @AfterEach
-    public void terminateBrowser() {
-        driver.quit();
-        this.driver = null;
     }
 }
